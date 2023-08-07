@@ -1,0 +1,6 @@
+[requires]
+cppzmq/4.10.0
+nng/1.3.0
+[generators]
+CMakeDeps
+CMakeToolchain
