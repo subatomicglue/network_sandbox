@@ -12,3 +12,6 @@ target_link_libraries(server_nng nng::nng)
 
 add_executable(http_client_nng http_client.cpp)
 target_link_libraries(http_client_nng nng::nng)
+
+add_executable(rest_server_nng rest_server.cpp)
+target_link_libraries(rest_server_nng nng::nng)
