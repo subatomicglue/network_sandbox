@@ -7,5 +7,6 @@ TODO: populate this area with something useful.
 - [zeromq](zeromq)
 - [cppzmq](cppzmq)
 - [nng](nng)
+- [nngpp](nngpp)
 
 
