@@ -10,7 +10,8 @@
 
 #include <cstdlib>
 #include <iostream>
-#include "asio.hpp"
+#include <asio/ts/buffer.hpp>
+#include <asio/ts/internet.hpp>
 
 using asio::ip::udp;
 
@@ -23,7 +24,8 @@ void server(asio::io_context& io_context, unsigned short port)
   {
     char data[max_length];
     udp::endpoint sender_endpoint;
-    size_t length = sock.receive_from( asio::buffer(data, max_length), sender_endpoint);
+    size_t length = sock.receive_from(
+        asio::buffer(data, max_length), sender_endpoint);
     sock.send_to(asio::buffer(data, length), sender_endpoint);
   }
 }

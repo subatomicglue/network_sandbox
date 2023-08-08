@@ -12,7 +12,8 @@
 #include <iostream>
 #include <memory>
 #include <utility>
-#include "asio.hpp"
+#include <asio/ts/buffer.hpp>
+#include <asio/ts/internet.hpp>
 
 using asio::ip::tcp;
 
@@ -66,7 +67,8 @@ class server
 {
 public:
   server(asio::io_context& io_context, short port)
-    : acceptor_(io_context, tcp::endpoint(tcp::v4(), port))
+    : acceptor_(io_context, tcp::endpoint(tcp::v4(), port)),
+      socket_(io_context)
   {
     do_accept();
   }
@@ -74,12 +76,12 @@ public:
 private:
   void do_accept()
   {
-    acceptor_.async_accept(
-        [this](std::error_code ec, tcp::socket socket)
+    acceptor_.async_accept(socket_,
+        [this](std::error_code ec)
         {
           if (!ec)
           {
-            std::make_shared<session>(std::move(socket))->start();
+            std::make_shared<session>(std::move(socket_))->start();
           }
 
           do_accept();
@@ -87,6 +89,7 @@ private:
   }
 
   tcp::acceptor acceptor_;
+  tcp::socket socket_;
 };
 
 int main(int argc, char* argv[])

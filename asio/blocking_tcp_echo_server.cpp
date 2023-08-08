@@ -12,7 +12,8 @@
 #include <iostream>
 #include <thread>
 #include <utility>
-#include "asio.hpp"
+#include <asio/ts/buffer.hpp>
+#include <asio/ts/internet.hpp>
 
 using asio::ip::tcp;
 
@@ -26,12 +27,12 @@ void session(tcp::socket sock)
     {
       char data[max_length];
 
-      asio::error_code error;
+      std::error_code error;
       size_t length = sock.read_some(asio::buffer(data), error);
-      if (error == asio::error::eof)
+      if (error == asio::stream_errc::eof)
         break; // Connection closed cleanly by peer.
       else if (error)
-        throw asio::system_error(error); // Some other error.
+        throw std::system_error(error); // Some other error.
 
       asio::write(sock, asio::buffer(data, length));
     }
@@ -47,7 +48,9 @@ void server(asio::io_context& io_context, unsigned short port)
   tcp::acceptor a(io_context, tcp::endpoint(tcp::v4(), port));
   for (;;)
   {
-    std::thread(session, a.accept()).detach();
+    tcp::socket sock(io_context);
+    a.accept(sock);
+    std::thread(session, std::move(sock)).detach();
   }
 }
 

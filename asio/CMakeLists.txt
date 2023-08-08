@@ -21,8 +21,6 @@ target_link_libraries(blocking_tcp_echo_client asio::asio openssl::openssl)
 add_executable(blocking_tcp_echo_server blocking_tcp_echo_server.cpp)
 target_link_libraries(blocking_tcp_echo_server asio::asio openssl::openssl)
 
-
-
 add_executable(blocking_udp_echo_server blocking_udp_echo_server.cpp)
 target_link_libraries(blocking_udp_echo_server asio::asio openssl::openssl)
 
@@ -31,3 +29,6 @@ target_link_libraries(blocking_udp_echo_client asio::asio openssl::openssl)
 
 add_executable(async_udp_echo_server async_udp_echo_server.cpp)
 target_link_libraries(async_udp_echo_server asio::asio openssl::openssl)
+
+add_executable(http_client http_client.cpp)
+target_link_libraries(http_client asio::asio openssl::openssl)
