@@ -1,7 +1,9 @@
-https://conan.io/center
-
-# nanomsg nng
-https://github.com/nanomsg/nng
+# nanomsg nng demos
+links:
+- https://conan.io/center (search for nng)
+- https://github.com/nanomsg/nng
+- https://nanomsg.org/gettingstarted/nng/pubsub.html
+- https://github.com/cwzx/nngpp/tree/master/demo
 
 # rest server
 REST API Gateway demo
